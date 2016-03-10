@@ -1,7 +1,6 @@
 package jp.ac.nii.prl.mape.plan.model;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
