@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -27,6 +28,7 @@ public class VirtualMachine {
 	@NotEmpty
 	private String id;
 	
+	@OneToOne
 	private VirtualMachineType type;
 	
 	private double load1;

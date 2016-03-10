@@ -6,6 +6,8 @@ import java.util.Map;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -17,10 +19,14 @@ public class Plan {
 	@JsonIgnore
 	private Long id;
 	
+	@OneToMany
 	private List<VirtualMachine> shutdown;
 	
-	private Map<Plan, Integer> startup;
+	@OneToMany
+	private List<VirtualMachineType> startup;
 	
+	@OneToOne
+	@JsonIgnore
 	private Deployment deployment;
 
 	public Deployment getDeployment() {
@@ -35,7 +41,7 @@ public class Plan {
 		return shutdown;
 	}
 
-	public Map<Plan, Integer> getStartup() {
+	public List<VirtualMachineType> getStartup() {
 		return startup;
 	}
 
@@ -51,7 +57,7 @@ public class Plan {
 		this.shutdown = shutdown;
 	}
 
-	public void setStartup(Map<Plan, Integer> startup) {
+	public void setStartup(List<VirtualMachineType> startup) {
 		this.startup = startup;
 	}
 	

@@ -23,6 +23,9 @@ public class Deployment {
 
 	@OneToMany(mappedBy="deployment")
 	private List<VirtualMachine> vms;
+	
+	@OneToOne
+	private Plan plan;
 
 	public Integer getId() {
 		return id;
