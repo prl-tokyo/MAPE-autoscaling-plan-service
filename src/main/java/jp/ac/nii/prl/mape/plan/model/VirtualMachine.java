@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.Min;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -28,23 +27,22 @@ public class VirtualMachine {
 	@NotEmpty
 	private String id;
 	
+	private VirtualMachineType type;
+	
 	private double load1;
-	
+
 	private double load5;
-	
+
 	private double load10;
-	
-	@Min(0)
-	private int cpus;
-	
-	public double getAverageLoadPerCPU(int type) {
-		return getLoad(type) / cpus;
-	}
 
+	public double getAverageLoadPerCPU(int duration) {
+		return getLoad(duration) / type.getCpuCount();
+	}
+	
 	public int getCpus() {
-		return cpus;
+		return type.getCpuCount();
 	}
-
+	
 	public Deployment getDeployment() {
 		return deployment;
 	}
@@ -53,8 +51,8 @@ public class VirtualMachine {
 		return id;
 	}
 	
-	private double getLoad(int type) {
-		switch(type) {
+	private double getLoad(int duration) {
+		switch(duration) {
 			case LOAD1:
 				return load1;
 			case LOAD5:
@@ -65,11 +63,11 @@ public class VirtualMachine {
 				return 0.00;
 		}
 	}
-	
+
 	public double getLoad1() {
 		return load1;
 	}
-	
+
 	public double getLoad10() {
 		return load10;
 	}
@@ -78,10 +76,14 @@ public class VirtualMachine {
 		return load5;
 	}
 	
-	public void setCpus(int cpus) {
-		this.cpus = cpus;
+	public VirtualMachineType getType() {
+		return type;
 	}
 	
+	public Integer getVmId() {
+		return vmId;
+	}
+		
 	public void setDeployment(Deployment deployment) {
 		this.deployment = deployment;
 	}
@@ -102,9 +104,17 @@ public class VirtualMachine {
 		this.load5 = load5;
 	}
 	
+	public void setType(VirtualMachineType type) {
+		this.type = type;
+	}
+	
+	public void setVmId(Integer vmId) {
+		this.vmId = vmId;
+	}
+	
 	@Override
 	public String toString() {
-		return String.format("VM [%s]: %d vCPUs, load: %4.2f - %4.2f - %4.2f, deployment: %s[%s]", 
-				vmId, cpus, load1, load5, load10, deployment.getId(), id);
+		return String.format("VM [%s]: type %s, %d CPUs, load: %4.2f - %4.2f - %4.2f, deployment: %s[%s]", 
+				vmId, type.getName(), type.getCpuCount(), load1, load5, load10, deployment.getId(), id);
 	}
 }
