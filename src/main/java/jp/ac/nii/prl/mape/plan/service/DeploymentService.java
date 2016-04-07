@@ -13,4 +13,6 @@ public interface DeploymentService {
 
 	Optional<Deployment> findById(Integer deploymentId);
 	
+	void addInstance(Integer deploymentId, String instType);
+	
 }
