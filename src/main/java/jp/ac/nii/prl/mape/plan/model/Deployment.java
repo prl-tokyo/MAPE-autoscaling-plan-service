@@ -22,7 +22,7 @@ public class Deployment {
 	private Adaptation adaptation;
 
 	@OneToMany(mappedBy="deployment")
-	private List<VirtualMachine> vms;
+	private List<Instance> vms;
 	
 	@OneToOne
 	private Plan plan;
@@ -31,15 +31,7 @@ public class Deployment {
 		return id;
 	}
 
-	public double getLoadPerCpu(int i) {
-		double load = 0;
-		for (VirtualMachine vm:vms) {
-			load += vm.getAverageLoadPerCPU(1);
-		}
-		return load / vms.size();
-	}
-
-	public List<VirtualMachine> getVms() {
+	public List<Instance> getVms() {
 		return vms;
 	}
 	
@@ -47,7 +39,7 @@ public class Deployment {
 		this.id = id;
 	}
 
-	public void setVms(List<VirtualMachine> vms) {
+	public void setVms(List<Instance> vms) {
 		this.vms = vms;
 	}
 

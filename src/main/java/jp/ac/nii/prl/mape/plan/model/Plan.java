@@ -19,10 +19,10 @@ public class Plan {
 	private Long id;
 	
 	@OneToMany
-	private List<VirtualMachine> shutdown;
+	private List<Instance> shutdown;
 	
 	@OneToMany
-	private List<VirtualMachineType> startup;
+	private List<InstanceType> startup;
 	
 	@OneToOne
 	@JsonIgnore
@@ -36,11 +36,11 @@ public class Plan {
 		return id;
 	}
 
-	public List<VirtualMachine> getShutdown() {
+	public List<Instance> getShutdown() {
 		return shutdown;
 	}
 
-	public List<VirtualMachineType> getStartup() {
+	public List<InstanceType> getStartup() {
 		return startup;
 	}
 
@@ -52,11 +52,11 @@ public class Plan {
 		this.id = id;
 	}
 
-	public void setShutdown(List<VirtualMachine> shutdown) {
+	public void setShutdown(List<Instance> shutdown) {
 		this.shutdown = shutdown;
 	}
 
-	public void setStartup(List<VirtualMachineType> startup) {
+	public void setStartup(List<InstanceType> startup) {
 		this.startup = startup;
 	}
 	
