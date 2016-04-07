@@ -22,7 +22,7 @@ public class Deployment {
 	private Adaptation adaptation;
 
 	@OneToMany(mappedBy="deployment")
-	private List<Instance> vms;
+	private List<Instance> instances;
 	
 	@OneToMany(mappedBy="deployment")
 	private List<InstanceType> instanceTypes;
@@ -39,8 +39,8 @@ public class Deployment {
 		return instanceTypes;
 	}
 
-	public List<Instance> getVms() {
-		return vms;
+	public List<Instance> getInstances() {
+		return instances;
 	}
 
 	public void setAdaptation(Adaptation adaptation) {
@@ -55,16 +55,16 @@ public class Deployment {
 		this.instanceTypes = instanceTypes;
 	}
 
-	public void setVms(List<Instance> vms) {
-		this.vms = vms;
+	public void setInstances(List<Instance> instances) {
+		this.instances = instances;
 	}
 	
 	public int size() {
-		return vms.size();
+		return instances.size();
 	}
 
 	public String toString() {
-		return String.format("Deployment %d with %d virtual machines", id, vms.size());
+		return String.format("Deployment %d with %d virtual machines", id, instances.size());
 	}
 
 }
