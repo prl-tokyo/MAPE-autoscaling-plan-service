@@ -10,4 +10,6 @@ public interface InstanceService {
 
 	Collection<Instance> findByDeploymentId(Integer deploymentId);
 
+	void setInstanceType(Instance instance);
+
 }

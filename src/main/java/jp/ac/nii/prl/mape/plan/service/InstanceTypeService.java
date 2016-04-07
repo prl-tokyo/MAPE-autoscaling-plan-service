@@ -6,4 +6,6 @@ public interface InstanceTypeService {
 
 	void save(InstanceType instType);
 
+	InstanceType findByDeploymentAndInstanceTypeIds(Integer id, String instType);
+
 }

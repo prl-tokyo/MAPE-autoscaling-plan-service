@@ -14,6 +14,9 @@ public class InstanceServiceImpl implements InstanceService {
 	@Autowired
 	private InstanceRepository instanceRepository;
 	
+	@Autowired
+	private InstanceTypeService instanceTypeService;
+	
 	@Override
 	public Instance save(Instance instance) {
 		return instanceRepository.save(instance);
@@ -22,6 +25,13 @@ public class InstanceServiceImpl implements InstanceService {
 	@Override
 	public Collection<Instance> findByDeploymentId(Integer deploymentId) {
 		return instanceRepository.findByDeploymentId(deploymentId);
+	}
+
+	@Override
+	public void setInstanceType(Instance instance) {
+		instance.setInstanceType(instanceTypeService.findByDeploymentAndInstanceTypeIds(
+				instance.getDeployment().getId(), 
+				instance.getInstType()));
 	}
 
 }
