@@ -1,10 +1,19 @@
 package jp.ac.nii.prl.mape.plan.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import jp.ac.nii.prl.mape.plan.model.Deployment;
+import jp.ac.nii.prl.mape.plan.model.Instance;
+import jp.ac.nii.prl.mape.plan.model.InstanceType;
 import jp.ac.nii.prl.mape.plan.service.AdaptationService;
 import jp.ac.nii.prl.mape.plan.service.DeploymentService;
 import jp.ac.nii.prl.mape.plan.service.InstanceService;
@@ -26,5 +35,25 @@ public class DeploymentController {
 	
 	@Autowired
 	private InstanceTypeService instanceTypeService;
+	
+	@RequestMapping(method=RequestMethod.POST)
+	public ResponseEntity<?> createDeployment(@RequestBody Deployment deployment) {
+		deploymentService.save(deployment);
+		for (InstanceType instType:deployment.getInstanceTypes()) {
+			instanceTypeService.save(instType);
+		}
+		for (Instance instance:deployment.getInstances()) {
+			instance.setDeployment(deployment);
+			instanceService.setInstanceType(instance);
+			instanceService.save(instance);
+		}
+		adaptationService.save(deployment.getAdaptation());
+
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.setLocation(ServletUriComponentsBuilder
+				.fromCurrentRequest().path("/{id}")
+				.buildAndExpand(deployment.getId()).toUri());
+		return new ResponseEntity<>(null, httpHeaders, HttpStatus.CREATED);
+	}
 	
 }
