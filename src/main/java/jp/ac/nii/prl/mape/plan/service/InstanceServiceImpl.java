@@ -34,4 +34,9 @@ public class InstanceServiceImpl implements InstanceService {
 				instance.getInstType()));
 	}
 
+	@Override
+	public void delete(Instance instance) {
+		instanceRepository.delete(instance);
+	}
+
 }

@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 import jp.ac.nii.prl.mape.plan.model.Deployment;
+import jp.ac.nii.prl.mape.plan.model.Instance;
 
 public interface DeploymentService {
 
@@ -14,5 +15,7 @@ public interface DeploymentService {
 	Optional<Deployment> findById(Integer deploymentId);
 	
 	void addInstance(Integer deploymentId, String instType);
+	
+	void deleteInstance(Integer deploymentId, Instance instance);
 	
 }

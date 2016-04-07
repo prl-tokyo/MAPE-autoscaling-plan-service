@@ -12,4 +12,6 @@ public interface InstanceService {
 
 	void setInstanceType(Instance instance);
 
+	void delete(Instance instance);
+
 }
