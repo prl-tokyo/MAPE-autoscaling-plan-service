@@ -3,10 +3,12 @@ package jp.ac.nii.prl.mape.plan.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import jp.ac.nii.prl.mape.plan.model.Adaptation;
 import jp.ac.nii.prl.mape.plan.repository.AdaptationRepository;
 
+@Service("adaptationService")
 public class AdaptationServiceImpl implements AdaptationService {
 
 	@Autowired
