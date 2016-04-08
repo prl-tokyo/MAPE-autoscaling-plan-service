@@ -71,7 +71,7 @@ public class DeploymentServiceImpl implements DeploymentService {
 			}
 			return;
 		} else { // we remove instances
-			Collection<Instance> delete = selectInstancesToDelete(deployment);
+			Collection<Instance> delete = selectInstancesToTerminate(deployment);
 			instanceService.deleteAll(delete);
 			return;
 		}
@@ -88,7 +88,7 @@ public class DeploymentServiceImpl implements DeploymentService {
 	 * @param deployment
 	 * @return a set of instances to terminate.
 	 */
-	private Collection<Instance> selectInstancesToDelete(Deployment deployment) {
+	private Collection<Instance> selectInstancesToTerminate(Deployment deployment) {
 		Collection<Instance> delete = new ArrayList<>();
 		int nCpus = deployment.getAdaptation().getCpuCount();
 		
