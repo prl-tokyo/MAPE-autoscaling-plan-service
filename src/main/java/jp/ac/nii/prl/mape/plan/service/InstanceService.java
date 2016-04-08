@@ -18,4 +18,6 @@ public interface InstanceService {
 	
 	Instance create(InstanceType type, Deployment deployment);
 
+	void deleteAll(Collection<Instance> delete);
+
 }

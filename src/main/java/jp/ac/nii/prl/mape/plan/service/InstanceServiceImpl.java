@@ -55,4 +55,10 @@ public class InstanceServiceImpl implements InstanceService {
 		return instance;
 	}
 
+	@Override
+	public void deleteAll(Collection<Instance> delete) {
+		for (Instance instance:delete)
+			delete(instance);
+	}
+
 }

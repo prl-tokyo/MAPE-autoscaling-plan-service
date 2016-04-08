@@ -18,4 +18,6 @@ public interface DeploymentService {
 	
 	void deleteInstance(Integer deploymentId, Instance instance);
 	
+	void plan(Deployment deployment);
+	
 }
