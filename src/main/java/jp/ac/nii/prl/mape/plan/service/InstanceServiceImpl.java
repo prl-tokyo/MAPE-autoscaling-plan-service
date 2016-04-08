@@ -1,11 +1,14 @@
 package jp.ac.nii.prl.mape.plan.service;
 
 import java.util.Collection;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jp.ac.nii.prl.mape.plan.model.Deployment;
 import jp.ac.nii.prl.mape.plan.model.Instance;
+import jp.ac.nii.prl.mape.plan.model.InstanceType;
 import jp.ac.nii.prl.mape.plan.repository.InstanceRepository;
 
 @Service("instanceService")
@@ -37,6 +40,19 @@ public class InstanceServiceImpl implements InstanceService {
 	@Override
 	public void delete(Instance instance) {
 		instanceRepository.delete(instance);
+	}
+
+	@Override
+	public Instance create(InstanceType type, Deployment deployment) {
+		Instance instance = new Instance();
+		instance.setInstID(UUID.randomUUID().toString());
+		instance.setInstLoad(0d);
+		instance.setInstType(type.getTypeID());
+		instance.setDeployment(deployment);
+		
+		instanceRepository.save(instance);
+		
+		return instance;
 	}
 
 }

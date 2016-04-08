@@ -2,7 +2,9 @@ package jp.ac.nii.prl.mape.plan.service;
 
 import java.util.Collection;
 
+import jp.ac.nii.prl.mape.plan.model.Deployment;
 import jp.ac.nii.prl.mape.plan.model.Instance;
+import jp.ac.nii.prl.mape.plan.model.InstanceType;
 
 public interface InstanceService {
 	
@@ -13,5 +15,7 @@ public interface InstanceService {
 	void setInstanceType(Instance instance);
 
 	void delete(Instance instance);
+	
+	Instance create(InstanceType type, Deployment deployment);
 
 }
