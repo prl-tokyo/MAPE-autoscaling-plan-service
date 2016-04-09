@@ -59,6 +59,12 @@ public class DeploymentServiceImpl implements DeploymentService {
 		instanceService.delete(instance);
 	}
 
+	/**
+	 * Creates a plan as per the adaptation instructions, adding or terminating instances as 
+	 * necessary. The plan is simply a modification of the deployment.
+	 * The adaptation is left untouched.
+	 * If no adaptation is necessary, there is no plan, and the deployment is not modified.
+	 */
 	@Override
 	public void plan(Deployment deployment) {
 		if (!deployment.getAdaptation().isAdapt())
