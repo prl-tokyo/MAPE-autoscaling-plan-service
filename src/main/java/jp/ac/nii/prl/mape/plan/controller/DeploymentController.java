@@ -1,10 +1,13 @@
 package jp.ac.nii.prl.mape.plan.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -68,4 +71,17 @@ public class DeploymentController {
 		return new ResponseEntity<>(null, httpHeaders, HttpStatus.CREATED);
 	}
 	
+	/**
+	 * Get deployment from ID
+	 * @param deploymentId the ID of the deployment
+	 * @return a deployment, if it exists, or and error if it doesn't
+	 */
+	@RequestMapping(value="/{deploymentId}", method=RequestMethod.GET)
+	Deployment getDeployment(@PathVariable Integer deploymentId) {
+		Optional<Deployment> deployment = deploymentService.findById(deploymentId);
+		if (deployment.isPresent())
+			return deployment.get();
+		else
+			throw new DeploymentNotFoundException(String.format("deployment %s not found",  deploymentId));
+	}
 }
