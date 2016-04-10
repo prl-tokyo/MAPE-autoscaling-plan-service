@@ -36,8 +36,19 @@ public class DeploymentController {
 	@Autowired
 	private InstanceTypeService instanceTypeService;
 	
+	/**
+	 * Receives a deployment, with adaptation. Calculate plan, and save the resulting 
+	 * deployment. Adaptation is saved for reference.
+	 * 
+	 * @param deployment
+	 * @return the location of the deployment
+	 */
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<?> createDeployment(@RequestBody Deployment deployment) {
+		// create plan
+		deploymentService.plan(deployment);
+		
+		// save deployment
 		deploymentService.save(deployment);
 		for (InstanceType instType:deployment.getInstanceTypes()) {
 			instanceTypeService.save(instType);
@@ -48,7 +59,8 @@ public class DeploymentController {
 			instanceService.save(instance);
 		}
 		adaptationService.save(deployment.getAdaptation());
-
+		
+		// create response
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.setLocation(ServletUriComponentsBuilder
 				.fromCurrentRequest().path("/{id}")
