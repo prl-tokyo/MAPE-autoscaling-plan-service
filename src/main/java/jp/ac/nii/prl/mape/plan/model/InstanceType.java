@@ -34,7 +34,7 @@ public class InstanceType {
 	private Integer typeCPUs;
 	
 	@JsonIgnore
-	@OneToMany
+	@OneToMany(mappedBy="instanceType")
 	private List<Instance> instances;
 	
 	@NotNull

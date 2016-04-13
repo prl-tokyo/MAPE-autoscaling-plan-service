@@ -20,4 +20,6 @@ public interface InstanceService {
 
 	void deleteAll(Collection<Instance> delete);
 
+	void setInstanceTypes(Instance instance);
+
 }

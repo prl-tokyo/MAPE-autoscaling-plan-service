@@ -48,8 +48,12 @@ public class DeploymentController {
 	 */
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<?> createDeployment(@RequestBody Deployment deployment) {
-		// create plan
-		deploymentService.plan(deployment);
+		
+		// set instance <-> instanceType relationship
+		for (InstanceType instType:deployment.getInstanceTypes())
+			instanceTypeService.setInstances(instType);
+		for (Instance instance:deployment.getInstances())
+			instanceService.setInstanceTypes(instance);
 		
 		// save deployment
 		deploymentService.save(deployment);
@@ -62,6 +66,9 @@ public class DeploymentController {
 			instanceService.save(instance);
 		}
 		adaptationService.save(deployment.getAdaptation());
+		
+		// create plan
+		deploymentService.plan(deployment);
 		
 		// create response
 		HttpHeaders httpHeaders = new HttpHeaders();

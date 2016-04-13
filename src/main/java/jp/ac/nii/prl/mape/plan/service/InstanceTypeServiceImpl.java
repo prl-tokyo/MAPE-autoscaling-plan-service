@@ -3,10 +3,12 @@ package jp.ac.nii.prl.mape.plan.service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jp.ac.nii.prl.mape.plan.model.Instance;
 import jp.ac.nii.prl.mape.plan.model.InstanceType;
 import jp.ac.nii.prl.mape.plan.repository.InstanceTypeRepository;
 
@@ -19,6 +21,17 @@ public class InstanceTypeServiceImpl implements InstanceTypeService {
 	@Override
 	public void save(InstanceType instType) {
 		instanceTypeRepository.save(instType);
+	}
+	
+	@Override
+	public void setInstances(InstanceType instType) {
+		List<Instance> instances = instType
+				.getDeployment()
+				.getInstances()
+				.stream()
+				.filter(i -> i.getInstType().equals(instType.getTypeID()))
+				.collect(Collectors.toList());
+		instType.setInstances(instances);
 	}
 
 	@Override

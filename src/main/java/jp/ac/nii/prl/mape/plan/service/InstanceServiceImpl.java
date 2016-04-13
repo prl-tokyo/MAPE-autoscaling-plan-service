@@ -2,6 +2,7 @@ package jp.ac.nii.prl.mape.plan.service;
 
 import java.util.Collection;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,18 @@ public class InstanceServiceImpl implements InstanceService {
 	@Override
 	public Instance save(Instance instance) {
 		return instanceRepository.save(instance);
+	}
+	
+	@Override
+	public void setInstanceTypes(Instance instance) {
+		instance.setInstanceType(instance
+				.getDeployment()
+				.getInstanceTypes()
+				.stream()
+				.filter(it -> it.getTypeID().equals(instance.getInstType()))
+				.findFirst()
+				.get());
+		System.out.println(String.format("Instance type is %s", instance.getInstanceType().getTypeID()));
 	}
 
 	@Override

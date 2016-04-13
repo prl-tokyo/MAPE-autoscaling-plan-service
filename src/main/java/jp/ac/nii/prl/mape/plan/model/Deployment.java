@@ -2,6 +2,7 @@ package jp.ac.nii.prl.mape.plan.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -16,10 +17,11 @@ public class Deployment {
 	
 	@Id
 	@GeneratedValue
+	@JsonIgnore
 	private Integer id;
 	
 	@JsonIgnore
-	@OneToOne(mappedBy="deployment")
+	@OneToOne(mappedBy="deployment", cascade=CascadeType.ALL)
 	private Adaptation adaptation;
 
 	@OneToMany(mappedBy="deployment")

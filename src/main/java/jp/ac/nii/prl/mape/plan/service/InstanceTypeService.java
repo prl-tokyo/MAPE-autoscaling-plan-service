@@ -12,4 +12,6 @@ public interface InstanceTypeService {
 	
 	Collection<InstanceType> getAdditionalCPUs(int nCpus);
 
+	void setInstances(InstanceType instType);
+
 }
