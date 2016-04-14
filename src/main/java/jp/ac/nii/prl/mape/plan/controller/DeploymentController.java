@@ -86,8 +86,11 @@ public class DeploymentController {
 	@RequestMapping(value="/{deploymentId}", method=RequestMethod.GET)
 	Deployment getDeployment(@PathVariable Integer deploymentId) {
 		Optional<Deployment> deployment = deploymentService.findById(deploymentId);
-		if (deployment.isPresent())
-			return deployment.get();
+		if (deployment.isPresent()) {
+			Deployment dep = deployment.get();
+			dep.setAdaptation(null);
+			return dep;
+		}
 		else
 			throw new DeploymentNotFoundException(String.format("deployment %s not found",  deploymentId));
 	}

@@ -20,8 +20,8 @@ public class Deployment {
 	@JsonIgnore
 	private Integer id;
 	
-	@JsonIgnore
 	@OneToOne(mappedBy="deployment", cascade=CascadeType.ALL)
+	@JsonIgnore
 	private Adaptation adaptation;
 
 	@OneToMany(mappedBy="deployment")
@@ -31,6 +31,7 @@ public class Deployment {
 	private List<InstanceType> instanceTypes;
 	
 	@JsonManagedReference
+	@JsonIgnore
 	public Adaptation getAdaptation() {
 		return adaptation;
 	}
